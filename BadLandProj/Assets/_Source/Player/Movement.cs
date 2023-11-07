@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
+namespace PlayerDependencies
+{
 public class Movement : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb;
@@ -10,15 +13,15 @@ public class Movement : MonoBehaviour
     [SerializeField] private float fallVel = -2.5f;
 
     private float vel;
-    Vector2 movement;
+    public bool jumpPressed;
+    public Vector2 movement;
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        if (Input.GetKey(KeyCode.Space))
+        
+        if (jumpPressed == true)
         {
             vel = jumpVel;
         }
-        
         else
         {
             vel = fallVel;
@@ -27,7 +30,9 @@ public class Movement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveSpeed * movement.x,vel);
+        rb.velocity = new Vector2(moveSpeed * movement.x, vel);
     }
-    
+
+}
+
 }
